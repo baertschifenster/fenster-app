@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <title>Bärtschi Fenster – Erfassung V3.2</title>
+  <title>Bärtschi Fenster – Erfassung V3.3</title>
   <meta name="theme-color" content="#0b1220">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
@@ -23,8 +23,11 @@
 </header>
 
 <main>
-  <section class="card">
-    <h2>Haupteinstellungen (Default für neue Positionen)</h2>
+  <section class="card defaultsBlock">
+    <div class="headerRow">
+      <h2>Haupteinstellungen (Default)</h2>
+      <small class="muted">Diese Werte gelten für neue Positionen und werden unten vorausgefüllt.</small>
+    </div>
     <div class="grid5">
       <div class="field"><label>Einstand links</label><input id="defL" type="number" value="10"></div>
       <div class="field"><label>Einstand rechts</label><input id="defR" type="number" value="10"></div>
@@ -40,15 +43,21 @@
       <button id="saveRow" class="primary">Position speichern</button>
     </div>
 
-    <div class="field"><label>Foto (4×4 cm in Excel)</label>
-      <input id="cameraInput" type="file" accept="image/*" capture="environment">
-    </div>
+    <div class="grid2">
+      <div class="field">
+        <label>Foto (optional, 4×4 cm in Excel)</label>
+        <input id="cameraInput" type="file" accept="image/*" capture="environment">
+        <div id="photoPreview" class="photoPreview">Kein Foto</div>
+        <div class="actions">
+          <button id="acceptPhoto" disabled class="primary">Foto akzeptieren</button>
+          <button id="discardPhoto" disabled class="ghost">Löschen</button>
+        </div>
+      </div>
 
-    <div id="photoPreview" class="photoPreview">Noch kein Foto</div>
-
-    <div class="actions">
-      <button id="acceptPhoto" disabled class="primary">Foto akzeptieren</button>
-      <button id="discardPhoto" disabled class="ghost">Löschen</button>
+      <div class="field">
+        <label>Bauposition (z. B. Küche, Bad, Wohnen)</label>
+        <input id="bauposition" type="text" placeholder="z. B. Küche">
+      </div>
     </div>
 
     <h3>Eingaben je Position</h3>
@@ -76,12 +85,52 @@
     <small>Regel: Nur links ODER rechts eingeben → das andere Feld wird automatisch berechnet.</small>
 
     <div class="overrideBlock">
-      <h3>Overrides (optional)</h3>
-      <div class="field"><label>Einstand links</label><input id="ovL" type="number" placeholder="leer = Default"></div>
-      <div class="field"><label>Einstand rechts</label><input id="ovR" type="number" placeholder="leer = Default"></div>
-      <div class="field"><label>Einstand oben</label><input id="ovO" type="number" placeholder="leer = Default"></div>
-      <div class="field"><label>Einstand unten</label><input id="ovU" type="number" placeholder="leer = Default"></div>
-      <div class="field"><label>Normrahmen</label><input id="ovN" type="number" placeholder="leer = Default"></div>
+      <div class="headerRow">
+        <h3>Einstände anpassen</h3>
+        <small class="muted">Standardwerte werden übernommen – Anpassungen wirken sofort in den Berechnungen.</small>
+      </div>
+
+      <div class="pairs">
+        <div class="pair">
+          <div class="field inlineField">
+            <label>Einstand links <span class="badge" id="hintL">Standard: 10 mm</span></label>
+            <input id="ovL" type="number">
+          </div>
+          <div class="pairResult">Rahmenbreite links: <b id="pairRbL">–</b> mm</div>
+        </div>
+
+        <div class="pair">
+          <div class="field inlineField">
+            <label>Einstand rechts <span class="badge" id="hintR">Standard: 10 mm</span></label>
+            <input id="ovR" type="number">
+          </div>
+          <div class="pairResult">Rahmenbreite rechts: <b id="pairRbR">–</b> mm</div>
+        </div>
+
+        <div class="pair">
+          <div class="field inlineField">
+            <label>Einstand oben <span class="badge" id="hintO">Standard: 10 mm</span></label>
+            <input id="ovO" type="number">
+          </div>
+          <div class="pairResult">Rahmenbreite oben: <b id="pairRbO">–</b> mm</div>
+        </div>
+
+        <div class="pair">
+          <div class="field inlineField">
+            <label>Einstand unten <span class="badge" id="hintU">Standard: 30 mm</span></label>
+            <input id="ovU" type="number">
+          </div>
+          <div class="pairResult">Rahmenbreite unten: <b id="pairRbU">–</b> mm</div>
+        </div>
+
+        <div class="pair">
+          <div class="field inlineField">
+            <label>Normrahmen <span class="badge" id="hintN">Standard: 98 mm</span></label>
+            <input id="ovN" type="number">
+          </div>
+          <div class="pairResult">(Rahmenverbreiterung): <b id="pairUeberO">–</b> mm</div>
+        </div>
+      </div>
     </div>
 
     <div class="field"><label>Hinweise / Speziell</label><input id="bemerkung" type="text"></div>
@@ -121,6 +170,7 @@
         <input id="editPhotoInput" type="file" accept="image/*" capture="environment">
       </div>
       <div class="dialogFields">
+        <div class="field"><label>Bauposition</label><input id="eBau" type="text"></div>
         <div class="field"><label>Futterlicht Breite</label><input id="eFLB" type="number"></div>
         <div class="field"><label>Futterlicht Höhe</label><input id="eFLH" type="number"></div>
         <div class="field"><label>UK R – Futterlicht</label><input id="eUKF" type="number"></div>
@@ -144,7 +194,7 @@
   </form>
 </dialog>
 
-<footer><small>© Bärtschi Fenster AG – lokal im Browser • V3.2 Dark • PWA-vorbereitet</small></footer>
+<footer><small>© Bärtschi Fenster AG – lokal im Browser • V3.3 Dark • PWA-vorbereitet</small></footer>
 
 <script src="script.js"></script>
 <script>
