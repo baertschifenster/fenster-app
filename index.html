@@ -1,23 +1,191 @@
-<h3>Berechnete Rahmenbreiten (editierbar — Häkchen aktivieren)</h3>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fenster App 3.9</title>
 
-<div class="grid g2 rb-grid">
-  <div class="field rb">
-    <label>RB_L <small><input id="RB_L_manual" type="checkbox"> Manuell</small></label>
-    <div class="mm"><input id="RB_L" type="number" readonly><span>mm</span></div>
-  </div>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
 
-  <div class="field rb">
-    <label>RB_R <small><input id="RB_R_manual" type="checkbox"> Manuell</small></label>
-    <div class="mm"><input id="RB_R" type="number" readonly><span>mm</span></div>
-  </div>
+    <link rel="stylesheet" href="style.css" />
 
-  <div class="field rb">
-    <label>RB_U <small><input id="RB_U_manual" type="checkbox"> Manuell</small></label>
-    <div class="mm"><input id="RB_U" type="number" readonly><span>mm</span></div>
-  </div>
+    <style>
+        /* einfache Sicherheits-Stile falls CSS nicht geladen wird */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 15px;
+            background: #f4f4f4;
+        }
+        h2, h3 {
+            margin-top: 25px;
+        }
+        .field {
+            margin-bottom: 15px;
+        }
+        .field label {
+            font-weight: bold;
+        }
+        .mm {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 6px;
+            font-size: 16px;
+        }
+        .grid {
+            display: grid;
+            gap: 12px;
+        }
+        .g2 { grid-template-columns: 1fr 1fr; }
+        .box {
+            background:white;
+            padding:15px;
+            border-radius:10px;
+            box-shadow:0 0 5px rgba(0,0,0,0.1);
+        }
+        .rb-grid input[readonly] {
+            background:#eee;
+        }
+    </style>
 
-  <div class="field rb">
-    <label>RB_O <small><input id="RB_O_manual" type="checkbox"> Manuell</small></label>
-    <div class="mm"><input id="RB_O" type="number" readonly><span>mm</span></div>
-  </div>
-</div>
+</head>
+<body>
+
+    <h1>Fenster App 3.9</h1>
+
+    <!-- HAUPTEINSTELLUNGEN -->
+    <h2>Haupteinstellungen</h2>
+    <div class="box">
+        <div class="grid g2">
+            <div class="field">
+                <label>Einstand links (Default)</label>
+                <input id="Einst_L" type="number" />
+                <input id="def_Einst_L" type="hidden" value="10">
+            </div>
+
+            <div class="field">
+                <label>Einstand rechts (Default)</label>
+                <input id="Einst_R" type="number" />
+                <input id="def_Einst_R" type="hidden" value="10">
+            </div>
+
+            <div class="field">
+                <label>Einstand oben (Default)</label>
+                <input id="Einst_O" type="number" />
+                <input id="def_Einst_O" type="hidden" value="10">
+            </div>
+
+            <div class="field">
+                <label>Einstand unten (Default)</label>
+                <input id="Einst_U" type="number" />
+                <input id="def_Einst_U" type="hidden" value="30">
+            </div>
+
+            <div class="field">
+                <label>Normrahmen (Default)</label>
+                <input id="NRa" type="number" />
+                <input id="def_NRa" type="hidden" value="98">
+            </div>
+        </div>
+    </div>
+
+    <!-- FOTO -->
+    <h2>Foto</h2>
+    <div class="box">
+        <input id="photoInput" type="file" accept="image/*" capture="environment" />
+        <p><small>Foto wird später exportiert.</small></p>
+    </div>
+
+    <!-- EINGABEN POSITION -->
+    <h2>Eingaben je Position</h2>
+    <div class="box">
+        <div class="field">
+            <label>Futterlicht Breite</label>
+            <div class="mm"><input id="FLB" type="number"><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>Futterlicht Höhe</label>
+            <div class="mm"><input id="FLH" type="number"><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>UK Rahmen – Futterlicht</label>
+            <div class="mm"><input id="UKR_FL" type="number"><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>Rahmenhöhe außen (RAM_H_eingabe)</label>
+            <div class="mm"><input id="RAM_H_eingabe" type="number"><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>Rahmenbreite außen (RAM_B_eingabe)</label>
+            <div class="mm"><input id="RAM_B_eingabe" type="number"><span>mm</span></div>
+        </div>
+    </div>
+
+    <!-- ANSCHLAG -->
+    <h2>Anschlag (nur eines eingeben)</h2>
+    <div class="box grid g2">
+        <div class="field">
+            <label>Anschlag links</label>
+            <div class="mm"><input id="Anschlag_li" type="number"><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>Anschlag rechts</label>
+            <div class="mm"><input id="Anschlag_re" type="number"><span>mm</span></div>
+        </div>
+    </div>
+
+    <!-- RB-BERECHNUNG -->
+    <h2>Berechnete Rahmenbreiten (editierbar — Häkchen aktivieren)</h2>
+
+    <div class="box rb-grid grid g2">
+
+        <div class="field">
+            <label>RB_L <small><input id="RB_L_manual" type="checkbox"> Manuell</small></label>
+            <div class="mm"><input id="RB_L" type="number" readonly><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>RB_R <small><input id="RB_R_manual" type="checkbox"> Manuell</small></label>
+            <div class="mm"><input id="RB_R" type="number" readonly><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>RB_U <small><input id="RB_U_manual" type="checkbox"> Manuell</small></label>
+            <div class="mm"><input id="RB_U" type="number" readonly><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>RB_O <small><input id="RB_O_manual" type="checkbox"> Manuell</small></label>
+            <div class="mm"><input id="RB_O" type="number" readonly><span>mm</span></div>
+        </div>
+
+    </div>
+
+    <!-- RAM ERGEBNISSE -->
+    <h2>Berechnete Außenmaße</h2>
+    <div class="box grid g2">
+        <div class="field">
+            <label>RAM_B (Breite)</label>
+            <div class="mm"><input id="RAM_B" type="number" readonly><span>mm</span></div>
+        </div>
+
+        <div class="field">
+            <label>RAM_H (Höhe)</label>
+            <div class="mm"><input id="RAM_H" type="number" readonly><span>mm</span></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
