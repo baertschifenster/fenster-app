@@ -1,0 +1,328 @@
+/* =============================== */
+/*       GLOBAL VARIABLES          */
+/* =============================== */
+
+:root {
+  --bg: #0b1220;
+  --card: #111a2b;
+  --soft: #0d182b;
+  --text: #e6edf6;
+  --muted: #90a2bf;
+  --line: #1f2a3c;
+  --in: #0b1324;
+  --brand: #3aa0ff;
+  --brand2: #1b84e8;
+  --ghost: #233047;
+  --ok: #69e09b;
+}
+
+/* LIGHT THEME */
+:root.light {
+  --bg: #f7f9fc;
+  --card: #ffffff;
+  --soft: #f1f5fb;
+  --text: #121926;
+  --muted: #6b7a93;
+  --line: #d9e1ef;
+  --in: #f7f9fe;
+  --brand: #2e7adf;
+  --brand2: #1e69c7;
+  --ghost: #e7eefb;
+}
+
+
+/* =============================== */
+/*          BASE STRUCTURE         */
+/* =============================== */
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+}
+
+
+/* =============================== */
+/*            TOP BAR              */
+/* =============================== */
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  background: color-mix(in oklab, var(--bg), transparent 10%);
+}
+
+.brand {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.brand .logo {
+  font-size: 22px;
+}
+
+.top-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+/* =============================== */
+/*             CARDS               */
+/* =============================== */
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.card.accent {
+  border-left: 4px solid var(--brand);
+  background: color-mix(in oklab, var(--card), var(--brand) 6%);
+}
+
+.card.soft {
+  background: var(--soft);
+}
+
+
+/* =============================== */
+/*           HEADINGS              */
+/* =============================== */
+
+h2, h3 {
+  margin: .3rem 0 .6rem;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+
+/* =============================== */
+/*           GRID SYSTEM           */
+/* =============================== */
+
+.grid {
+  display: grid;
+  gap: 12px;
+}
+
+.g2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.g3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.g5 {
+  grid-template-columns: repeat(5, 1fr);
+}
+
+@media(max-width: 900px) {
+  .g5 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .g3 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .g2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =============================== */
+/*             FIELDS              */
+/* =============================== */
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field input[type=number],
+.field input[type=text],
+.field input[type=file] {
+  background: var(--in);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+  color: var(--text);
+}
+
+
+/* =============================== */
+/*           PHOTO PREVIEW         */
+/* =============================== */
+
+.photo {
+  width: 180px;
+  height: 180px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  background: var(--in);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+
+/* =============================== */
+/*              BUTTONS            */
+/* =============================== */
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.btn.primary {
+  color: #fff;
+  background: linear-gradient(180deg, var(--brand), var(--brand2));
+  box-shadow: 0 4px 10px color-mix(in oklab, var(--brand), black 70% / 20%);
+}
+
+.btn.ghost {
+  background: var(--ghost);
+  color: var(--text);
+}
+
+.btn.lg {
+  width: 100%;
+  padding: 14px 16px;
+  font-weight: 700;
+}
+
+.toggle {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+
+/* =============================== */
+/*           RB FIELDS             */
+/* =============================== */
+
+.rb-grid .rb .mm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rb-grid .rb .mm span {
+  color: var(--muted);
+}
+
+
+/* =============================== */
+/*           RESULT BOX            */
+/* =============================== */
+
+.calc {
+  margin-top: 10px;
+}
+
+.actions-bottom {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.msg {
+  color: var(--ok);
+  font-size: 13px;
+}
+
+
+/* =============================== */
+/*         LIST / ENTRIES          */
+/* =============================== */
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.item .ph {
+  width: 72px;
+  height: 72px;
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.item img {
+  width: 72px;
+  height: 72px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+
+/* =============================== */
+/*              FOOTER             */
+/* =============================== */
+
+.foot {
+  padding: 16px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
