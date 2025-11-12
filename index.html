@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fenster App V4.0</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0b1220" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">🪟</span>
+    <b>Fenster App</b><small>V4.0</small>
+  </div>
+  <div class="stamp">
+    <img src="logo.png" alt="Bärtschi Fenster Logo">
+    <span class="badge">2.0</span>
+  </div>
+</header>
+<main class="container">
+  <section class="card accent">
+    <h2>Haupteinstellungen (Default)</h2>
+    <p class="muted">Diese Werte gelten für jede neue Position, können aber unten überschrieben werden.</p>
+    <div class="grid g5">
+      <div class="field">
+        <label>Einstand links</label>
+        <input id="Einst_L" type="number" />
+        <input id="def_Einst_L" type="hidden" value="10">
+      </div>
+      <div class="field">
+        <label>Einstand rechts</label>
+        <input id="Einst_R" type="number" />
+        <input id="def_Einst_R" type="hidden" value="10">
+      </div>
+      <div class="field">
+        <label>Einstand oben</label>
+        <input id="Einst_O" type="number" />
+        <input id="def_Einst_O" type="hidden" value="10">
+      </div>
+      <div class="field">
+        <label>Einstand unten</label>
+        <input id="Einst_U" type="number" />
+        <input id="def_Einst_U" type="hidden" value="30">
+      </div>
+      <div class="field">
+        <label>Normrahmen (NRa)</label>
+        <input id="NRa" type="number" />
+        <input id="def_NRa" type="hidden" value="98">
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Position erfassen</h2>
+
+    <div class="grid g2">
+      <div class="field">
+        <label>Bauposition</label>
+        <input id="bauposition" type="text" placeholder="z.B. Küche">
+      </div>
+      <div class="field">
+        <label>Hinweise / Speziell</label>
+        <input id="bemerkung" type="text" placeholder="Optional">
+      </div>
+    </div>
+
+    <div class="grid g2">
+      <div class="field">
+        <label>Foto (optional)</label>
+        <input id="photoInput" type="file" accept="image/*" capture="environment">
+        <div id="photoPreview" class="photo">Kein Foto</div>
+      </div>
+
+      <div class="grid g2">
+        <div class="field">
+          <label>Futterlicht Breite (FLB)</label>
+          <input id="FLB" type="number">
+        </div>
+        <div class="field">
+          <label>Futterlicht Höhe (FLH)</label>
+          <input id="FLH" type="number">
+        </div>
+        <div class="field">
+          <label>UK Rahmen – Futterlicht (UKR_FL)</label>
+          <input id="UKR_FL" type="number">
+        </div>
+        <div class="field">
+          <label>Rahmenhöhe außen (RAM_H_eingabe)</label>
+          <input id="RAM_H_eingabe" type="number">
+        </div>
+        <div class="field">
+          <label>Rahmenbreite außen (RAM_B_eingabe)</label>
+          <input id="RAM_B_eingabe" type="number">
+        </div>
+      </div>
+    </div>
+
+    <h3>Anschlag (nur eines eingeben)</h3>
+    <div class="grid g2">
+      <div class="field">
+        <label>Anschlag links</label>
+        <input id="Anschlag_li" type="number" placeholder="nur eines">
+      </div>
+      <div class="field">
+        <label>Anschlag rechts</label>
+        <input id="Anschlag_re" type="number" placeholder="nur eines">
+      </div>
+    </div>
+
+    <h3>Einstände anpassen</h3>
+    <div class="grid g5">
+      <div class="field">
+        <label>Einstand links</label>
+        <input id="Einst_L_over" type="number" placeholder="leer = Default">
+      </div>
+      <div class="field">
+        <label>Einstand rechts</label>
+        <input id="Einst_R_over" type="number" placeholder="leer = Default">
+      </div>
+      <div class="field">
+        <label>Einstand oben</label>
+        <input id="Einst_O_over" type="number" placeholder="leer = Default">
+      </div>
+      <div class="field">
+        <label>Einstand unten</label>
+        <input id="Einst_U_over" type="number" placeholder="leer = Default">
+      </div>
+      <div class="field">
+        <label>Normrahmen (NRa)</label>
+        <input id="NRa_over" type="number" placeholder="leer = Default">
+      </div>
+    </div>
+
+    <h3>Berechnete Rahmenbreiten (Häkchen = manuell)</h3>
+    <div class="grid g2 rb-grid">
+      <div class="field rb">
+        <label>RB_L <small><input id="RB_L_manual" type="checkbox"> Manuell</small></label>
+        <div class="mm"><input id="RB_L" type="number" readonly><span>mm</span></div>
+      </div>
+      <div class="field rb">
+        <label>RB_R <small><input id="RB_R_manual" type="checkbox"> Manuell</small></label>
+        <div class="mm"><input id="RB_R" type="number" readonly><span>mm</span></div>
+      </div>
+      <div class="field rb">
+        <label>RB_U <small><input id="RB_U_manual" type="checkbox"> Manuell</small></label>
+        <div class="mm"><input id="RB_U" type="number" readonly><span>mm</span></div>
+      </div>
+      <div class="field rb">
+        <label>RB_O <small><input id="RB_O_manual" type="checkbox"> Manuell</small></label>
+        <div class="mm"><input id="RB_O" type="number" readonly><span>mm</span></div>
+      </div>
+    </div>
+
+    <div class="calc card soft">
+      <h3>Zusammenfassung</h3>
+      <div class="grid g2">
+        <div><b>Rahmenlicht Breite (RL_B):</b> <span id="RL_B">–</span> mm</div>
+        <div><b>Rahmenlicht Höhe (RL_H):</b> <span id="RL_H">–</span> mm</div>
+        <div><b>Rahmenaussenmass Breite (RAM_B):</b> <span id="RAM_B">–</span> mm</div>
+        <div><b>Rahmenaussenmass Höhe (RAM_H):</b> <span id="RAM_H">–</span> mm</div>
+        <div><b>Rahmenverbreiterung zu Normrahmen (RB_O − NRa):</b> <span id="RV_zu_Norm">–</span> mm</div>
+      </div>
+    </div>
+
+  </section>
+</main>
+<footer class="foot"><small>© Bärtschi Fenster AG – PWA</small></footer>
+<script src="script.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js');
+  });
+}
+</script>
+</body>
+</html>
